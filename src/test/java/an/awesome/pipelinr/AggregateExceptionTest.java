@@ -4,6 +4,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.ArrayList;
 import java.util.Collection;
+
+import an.awesome.pipelinr.AggregateException;
 import org.junit.jupiter.api.Test;
 
 class AggregateExceptionTest {
@@ -17,7 +19,7 @@ class AggregateExceptionTest {
     exceptions.add(omg);
     exceptions.add(ouch);
 
-    AggregateException aggregateException = new AggregateException(exceptions);
+    an.awesome.pipelinr.AggregateException aggregateException = new AggregateException(exceptions);
 
     assertThat(aggregateException.exceptions()).containsExactlyInAnyOrder(omg, ouch);
     assertThat(aggregateException).hasMessage("2 exception(s)");

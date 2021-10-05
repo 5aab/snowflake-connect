@@ -1,10 +1,10 @@
 package an.awesome.pipelinr;
 
+import org.junit.jupiter.api.Test;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-
-import org.junit.jupiter.api.Test;
 
 public class PreconditionsTest {
 
@@ -14,7 +14,7 @@ public class PreconditionsTest {
         assertThrows(
             IllegalArgumentException.class,
             () -> {
-              Preconditions.checkArgument(null, "Shit has happened");
+              an.awesome.pipelinr.Preconditions.checkArgument(null, "Shit has happened");
             });
 
     assertThat(e).hasMessage("Shit has happened");
@@ -26,7 +26,7 @@ public class PreconditionsTest {
         assertThrows(
             IllegalArgumentException.class,
             () -> {
-              Preconditions.checkArgument(false, "Shit has happened");
+              an.awesome.pipelinr.Preconditions.checkArgument(false, "Shit has happened");
             });
 
     assertThat(e).hasMessage("Shit has happened");
@@ -38,7 +38,7 @@ public class PreconditionsTest {
     Object checkedObject = new Object();
 
     // when
-    Object returnedObject = Preconditions.checkArgument(checkedObject, "OK");
+    Object returnedObject = an.awesome.pipelinr.Preconditions.checkArgument(checkedObject, "OK");
 
     // then
     assertThat(returnedObject).isEqualTo(checkedObject);
@@ -46,6 +46,6 @@ public class PreconditionsTest {
 
   @Test
   void passesIfAnArgumentIsTruthy() {
-    assertDoesNotThrow(() -> Preconditions.checkArgument(true, "OK"));
+    assertDoesNotThrow(() -> an.awesome.pipelinr.Preconditions.checkArgument(true, "OK"));
   }
 }

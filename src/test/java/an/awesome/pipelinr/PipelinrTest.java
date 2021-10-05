@@ -9,6 +9,13 @@ import java.util.Collection;
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.stream.Stream;
+
+import an.awesome.pipelinr.Command;
+import an.awesome.pipelinr.CommandHandlerNotFoundException;
+import an.awesome.pipelinr.CommandHasMultipleHandlersException;
+import an.awesome.pipelinr.PipelineStep;
+import an.awesome.pipelinr.Pipelinr;
+import an.awesome.pipelinr.Voidy;
 import org.junit.jupiter.api.Test;
 
 class PipelinrTest {
@@ -20,7 +27,7 @@ class PipelinrTest {
         new HandlerThatExtendsAbstractClass();
 
     // and
-    Pipelinr pipelinr = new Pipelinr().with(() -> Stream.of(handlerThatExtendsAbstractClass));
+    an.awesome.pipelinr.Pipelinr pipelinr = new an.awesome.pipelinr.Pipelinr().with(() -> Stream.of(handlerThatExtendsAbstractClass));
 
     // when
     pipelinr.send(new Ping("hi"));
@@ -35,7 +42,7 @@ class PipelinrTest {
     List<String> invokedMiddlewareIds = new ArrayList<>();
 
     // and
-    class IdentifiableMiddleware implements Command.Middleware {
+    class IdentifiableMiddleware implements an.awesome.pipelinr.Command.Middleware {
       private final String id;
 
       private IdentifiableMiddleware(String id) {
@@ -43,24 +50,24 @@ class PipelinrTest {
       }
 
       @Override
-      public <R, C extends Command<R>> R invoke(C command, Next<R> next) {
+      public <R, C extends an.awesome.pipelinr.Command<R>> R invoke(C command, Next<R> next) {
         invokedMiddlewareIds.add(id);
         return next.invoke();
       }
     }
 
     // and
-    Command.Middleware foo = new IdentifiableMiddleware("foo");
+    an.awesome.pipelinr.Command.Middleware foo = new IdentifiableMiddleware("foo");
 
     // and
-    Command.Middleware bar = new IdentifiableMiddleware("bar");
+    an.awesome.pipelinr.Command.Middleware bar = new IdentifiableMiddleware("bar");
 
     // and
-    Command.Middleware baz = new IdentifiableMiddleware("baz");
+    an.awesome.pipelinr.Command.Middleware baz = new IdentifiableMiddleware("baz");
 
     // and
-    Pipelinr pipelinr =
-        new Pipelinr().with(() -> Stream.of(new Pong2())).with(() -> Stream.of(foo, bar, baz));
+    an.awesome.pipelinr.Pipelinr pipelinr =
+        new an.awesome.pipelinr.Pipelinr().with(() -> Stream.of(new Pong2())).with(() -> Stream.of(foo, bar, baz));
 
     // when
     new Ping().execute(pipelinr);
@@ -75,17 +82,17 @@ class PipelinrTest {
     List<Integer> invokedStepNumbers = new ArrayList<>();
 
     // and
-    PipelineStep first = new UniqueStep(1, invokedStepNumbers::add);
+    an.awesome.pipelinr.PipelineStep first = new UniqueStep(1, invokedStepNumbers::add);
 
     // and
-    PipelineStep second = new UniqueStep(2, invokedStepNumbers::add);
+    an.awesome.pipelinr.PipelineStep second = new UniqueStep(2, invokedStepNumbers::add);
 
     // and
-    PipelineStep third = new UniqueStep(3, invokedStepNumbers::add);
+    an.awesome.pipelinr.PipelineStep third = new UniqueStep(3, invokedStepNumbers::add);
 
     // and
-    Pipelinr pipelinr =
-        new Pipelinr()
+    an.awesome.pipelinr.Pipelinr pipelinr =
+        new an.awesome.pipelinr.Pipelinr()
             .with(() -> Stream.of(new Pong2()))
             .with(() -> Stream.of(first, second, third));
 
@@ -103,7 +110,7 @@ class PipelinrTest {
     PingSaver pingSaver = new PingSaver();
 
     // and
-    Pipelinr pipelinr = new Pipelinr().with(() -> Stream.of(hi, pingSaver));
+    an.awesome.pipelinr.Pipelinr pipelinr = new an.awesome.pipelinr.Pipelinr().with(() -> Stream.of(hi, pingSaver));
 
     // when
     pipelinr.send(new Ping("hi"));
@@ -119,7 +126,7 @@ class PipelinrTest {
   @Test
   void throwsIfSentCommandHasNoMatchingHandler() {
     // given
-    Pipelinr pipelinr = new Pipelinr();
+    an.awesome.pipelinr.Pipelinr pipelinr = new an.awesome.pipelinr.Pipelinr();
 
     // when
     Throwable e =
@@ -136,7 +143,7 @@ class PipelinrTest {
   @Test
   void throwsIfSentCommandHasMultipleHandlers() {
     // given
-    Pipelinr pipelinr = new Pipelinr().with(() -> Stream.of(new Pong1(), new Pong2()));
+    an.awesome.pipelinr.Pipelinr pipelinr = new Pipelinr().with(() -> Stream.of(new Pong1(), new Pong2()));
 
     // when
     Throwable e =
@@ -162,13 +169,13 @@ class PipelinrTest {
     }
 
     @Override
-    public <R, C extends Command<R>> R invoke(C command, Next<R> next) {
+    public <R, C extends an.awesome.pipelinr.Command<R>> R invoke(C command, Next<R> next) {
       noConsumer.accept(no);
       return next.invoke();
     }
   }
 
-  static class Ping implements Command<Voidy> {
+  static class Ping implements an.awesome.pipelinr.Command<an.awesome.pipelinr.Voidy> {
 
     private final String message;
 
@@ -189,14 +196,14 @@ class PipelinrTest {
       return false;
     }
 
-    static class PingSaver implements Handler<Ping, Voidy> {
+    static class PingSaver implements Handler<Ping, an.awesome.pipelinr.Voidy> {
 
       Collection<Ping> receivedPings = new ArrayList<>();
 
       @Override
-      public Voidy handle(Ping command) {
+      public an.awesome.pipelinr.Voidy handle(Ping command) {
         this.receivedPings.add(command);
-        return new Voidy();
+        return new an.awesome.pipelinr.Voidy();
       }
 
       @Override
@@ -205,14 +212,14 @@ class PipelinrTest {
       }
     }
 
-    static class Hi implements Handler<Ping, Voidy> {
+    static class Hi implements Handler<Ping, an.awesome.pipelinr.Voidy> {
 
       Collection<Ping> receivedPings = new ArrayList<>();
 
       @Override
-      public Voidy handle(Ping command) {
+      public an.awesome.pipelinr.Voidy handle(Ping command) {
         this.receivedPings.add(command);
-        return new Voidy();
+        return new an.awesome.pipelinr.Voidy();
       }
 
       @Override
@@ -221,28 +228,28 @@ class PipelinrTest {
       }
     }
 
-    static class Pong1 implements Handler<Ping, Voidy> {
+    static class Pong1 implements Handler<Ping, an.awesome.pipelinr.Voidy> {
       @Override
-      public Voidy handle(Ping command) {
+      public an.awesome.pipelinr.Voidy handle(Ping command) {
         System.out.println("Pong 1");
-        return new Voidy();
+        return new an.awesome.pipelinr.Voidy();
       }
     }
 
-    static class Pong2 implements Handler<Ping, Voidy> {
+    static class Pong2 implements Handler<Ping, an.awesome.pipelinr.Voidy> {
       @Override
-      public Voidy handle(Ping command) {
+      public an.awesome.pipelinr.Voidy handle(Ping command) {
         System.out.println("Pong 2");
-        return new Voidy();
+        return new an.awesome.pipelinr.Voidy();
       }
     }
 
-    static class HandlerThatExtendsAbstractClass extends AbstractHandler<Ping, Voidy> {
+    static class HandlerThatExtendsAbstractClass extends AbstractHandler<Ping, an.awesome.pipelinr.Voidy> {
 
       Collection<Ping> receivedPings = new ArrayList<>();
 
       @Override
-      public Voidy handle(Ping command) {
+      public an.awesome.pipelinr.Voidy handle(Ping command) {
         this.receivedPings.add(command);
         return new Voidy();
       }

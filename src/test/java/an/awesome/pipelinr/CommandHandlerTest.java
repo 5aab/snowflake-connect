@@ -5,21 +5,22 @@ import static org.assertj.core.api.Assertions.assertThat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.stream.Stream;
+
 import org.junit.jupiter.api.Test;
 
 class CommandHandlerTest {
 
   @Test
   void resolvesHandlersWithAGenericCommandType() {
-    Pipeline pipeline = new Pipelinr(() -> Stream.of(new HandlerWithAGenericCommandType()));
+    an.awesome.pipelinr.Pipeline pipeline = new an.awesome.pipelinr.Pipelinr(() -> Stream.of(new HandlerWithAGenericCommandType()));
 
     String results = pipeline.send(new Foo<>(new Bar()));
     assertThat(results).isEqualTo("Bar");
   }
 
-  class Bar implements Command<String> {}
+  class Bar implements an.awesome.pipelinr.Command<String> {}
 
-  class Foo<C extends Command<R>, R> implements Command<R> {
+  class Foo<C extends an.awesome.pipelinr.Command<R>, R> implements an.awesome.pipelinr.Command<R> {
     C wrappee;
 
     Foo(C wrappee) {
@@ -27,8 +28,8 @@ class CommandHandlerTest {
     }
   }
 
-  class HandlerWithAGenericCommandType<C extends Command<R>, R>
-      implements Command.Handler<Foo<C, R>, R> {
+  class HandlerWithAGenericCommandType<C extends an.awesome.pipelinr.Command<R>, R>
+      implements an.awesome.pipelinr.Command.Handler<Foo<C, R>, R> {
 
     @SuppressWarnings("unchecked")
     @Override
@@ -59,29 +60,29 @@ class CommandHandlerTest {
     assertThat(notAPingHandler.handled).containsOnly(notAPing);
   }
 
-  static class Ping implements Command<Voidy> {
+  static class Ping implements an.awesome.pipelinr.Command<an.awesome.pipelinr.Voidy> {
 
-    static class Handler implements Command.Handler<Ping, Voidy> {
+    static class Handler implements an.awesome.pipelinr.Command.Handler<Ping, an.awesome.pipelinr.Voidy> {
 
-      private Collection<Command> handled = new ArrayList<>();
+      private Collection<an.awesome.pipelinr.Command> handled = new ArrayList<>();
 
       @Override
-      public Voidy handle(Ping command) {
+      public an.awesome.pipelinr.Voidy handle(Ping command) {
         handled.add(command);
-        return new Voidy();
+        return new an.awesome.pipelinr.Voidy();
       }
     }
   }
 
   static class SmartPing extends Ping {}
 
-  static class NotAPing implements Command<Voidy> {
-    static class Handler implements Command.Handler<NotAPing, Voidy> {
+  static class NotAPing implements an.awesome.pipelinr.Command<an.awesome.pipelinr.Voidy> {
+    static class Handler implements an.awesome.pipelinr.Command.Handler<NotAPing, an.awesome.pipelinr.Voidy> {
 
       private Collection<Command> handled = new ArrayList<>();
 
       @Override
-      public Voidy handle(NotAPing command) {
+      public an.awesome.pipelinr.Voidy handle(NotAPing command) {
         handled.add(command);
         return new Voidy();
       }

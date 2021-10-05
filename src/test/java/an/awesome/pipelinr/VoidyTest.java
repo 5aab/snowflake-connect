@@ -2,6 +2,7 @@ package an.awesome.pipelinr;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import an.awesome.pipelinr.Voidy;
 import org.junit.jupiter.api.Test;
 
 public class VoidyTest {
@@ -9,8 +10,8 @@ public class VoidyTest {
   @Test
   public void equalsToAnyOtherVoidyButNotDifferentObjects() {
     // given
-    Voidy anObject = new Voidy();
-    Voidy otherVoidy = new Voidy();
+    an.awesome.pipelinr.Voidy anObject = new an.awesome.pipelinr.Voidy();
+    an.awesome.pipelinr.Voidy otherVoidy = new an.awesome.pipelinr.Voidy();
 
     Object differentObject = new Object();
 

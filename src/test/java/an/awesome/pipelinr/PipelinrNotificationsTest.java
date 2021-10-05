@@ -13,6 +13,16 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.stream.Stream;
+
+import an.awesome.pipelinr.AggregateException;
+import an.awesome.pipelinr.Async;
+import an.awesome.pipelinr.ContinueOnException;
+import an.awesome.pipelinr.Notification;
+import an.awesome.pipelinr.ParallelNoWait;
+import an.awesome.pipelinr.ParallelWhenAll;
+import an.awesome.pipelinr.ParallelWhenAny;
+import an.awesome.pipelinr.Pipeline;
+import an.awesome.pipelinr.Pipelinr;
 import org.junit.jupiter.api.Test;
 
 class PipelinrNotificationsTest {
@@ -26,7 +36,7 @@ class PipelinrNotificationsTest {
     List<String> invokedMiddlewareIds = new ArrayList<>();
 
     // and
-    class IdentifiableMiddleware implements Notification.Middleware {
+    class IdentifiableMiddleware implements an.awesome.pipelinr.Notification.Middleware {
       private final String id;
 
       private IdentifiableMiddleware(String id) {
@@ -34,16 +44,16 @@ class PipelinrNotificationsTest {
       }
 
       @Override
-      public <N extends Notification> void invoke(N notification, Next next) {
+      public <N extends an.awesome.pipelinr.Notification> void invoke(N notification, Next next) {
         invokedMiddlewareIds.add(id);
         next.invoke();
       }
     }
 
     // and
-    class Greet implements Notification {}
+    class Greet implements an.awesome.pipelinr.Notification {}
 
-    class OnGreet implements Notification.Handler<Greet> {
+    class OnGreet implements an.awesome.pipelinr.Notification.Handler<Greet> {
 
       @Override
       public void handle(Greet notification) {
@@ -52,17 +62,17 @@ class PipelinrNotificationsTest {
     }
 
     // and
-    Notification.Middleware foo = new IdentifiableMiddleware("foo");
+    an.awesome.pipelinr.Notification.Middleware foo = new IdentifiableMiddleware("foo");
 
     // and
-    Notification.Middleware bar = new IdentifiableMiddleware("bar");
+    an.awesome.pipelinr.Notification.Middleware bar = new IdentifiableMiddleware("bar");
 
     // and
-    Notification.Middleware baz = new IdentifiableMiddleware("baz");
+    an.awesome.pipelinr.Notification.Middleware baz = new IdentifiableMiddleware("baz");
 
     // and
-    Pipelinr pipelinr =
-        new Pipelinr().with(() -> Stream.of(new OnGreet())).with(() -> Stream.of(foo, bar, baz));
+    an.awesome.pipelinr.Pipelinr pipelinr =
+        new an.awesome.pipelinr.Pipelinr().with(() -> Stream.of(new OnGreet())).with(() -> Stream.of(foo, bar, baz));
 
     // when
     new Greet().send(pipelinr);
@@ -75,7 +85,7 @@ class PipelinrNotificationsTest {
   void supportsAsyncStrategy() {
     // given:
     ExecutorService threadPool = Executors.newFixedThreadPool(1);
-    Pipeline pipeline =
+    an.awesome.pipelinr.Pipeline pipeline =
         pipelinrWithHandlers(
                 new ThrowingRespublican("Omg"),
                 new ThrowingRespublican("Oh!"),
@@ -88,7 +98,7 @@ class PipelinrNotificationsTest {
         assertThrows(RuntimeException.class, () -> new GreetRespublicans().send(pipeline));
 
     // then:
-    assertThat(e).isExactlyInstanceOf(AggregateException.class);
+    assertThat(e).isExactlyInstanceOf(an.awesome.pipelinr.AggregateException.class);
     assertThat(timesHandled).hasValue(4);
     assertThat(threads).hasSize(1);
     assertThat(threads).doesNotContain(currentThread());
@@ -98,7 +108,7 @@ class PipelinrNotificationsTest {
   void supportsParallelNoWait() throws InterruptedException {
     // given:
     ExecutorService threadPool = Executors.newFixedThreadPool(4);
-    Pipeline pipeline =
+    an.awesome.pipelinr.Pipeline pipeline =
         pipelinrWithHandlers(
                 new ThrowingRespublican("Omg"),
                 new ThrowingRespublican("Oh!"),
@@ -120,7 +130,7 @@ class PipelinrNotificationsTest {
   void supportsParallelWhenAllStrategy() {
     // given:
     ExecutorService threadPool = Executors.newFixedThreadPool(4);
-    Pipeline pipeline =
+    an.awesome.pipelinr.Pipeline pipeline =
         pipelinrWithHandlers(
                 new ThrowingRespublican("Omg"),
                 new ThrowingRespublican("Oh!"),
@@ -133,7 +143,7 @@ class PipelinrNotificationsTest {
         assertThrows(RuntimeException.class, () -> new GreetRespublicans().send(pipeline));
 
     // then:
-    assertThat(e).isExactlyInstanceOf(AggregateException.class);
+    assertThat(e).isExactlyInstanceOf(an.awesome.pipelinr.AggregateException.class);
     assertThat(e).hasMessageContaining("2 exception(s)");
     assertThat(timesHandled).hasValue(4);
     assertThat(threads).hasSize(4);
@@ -144,7 +154,7 @@ class PipelinrNotificationsTest {
   void supportsParallelWhenAnyStrategy() throws InterruptedException {
     // given:
     ExecutorService threadPool = Executors.newFixedThreadPool(4);
-    Pipeline pipeline =
+    an.awesome.pipelinr.Pipeline pipeline =
         pipelinrWithHandlers(
                 new ThrowingRespublican("Omg", 2000),
                 new ThrowingRespublican("Oh!", 2000),
@@ -157,7 +167,7 @@ class PipelinrNotificationsTest {
         assertThrows(RuntimeException.class, () -> new GreetRespublicans().send(pipeline));
 
     // then:
-    assertThat(e).isExactlyInstanceOf(AggregateException.class);
+    assertThat(e).isExactlyInstanceOf(an.awesome.pipelinr.AggregateException.class);
     assertThat(e).hasMessageContaining("1 exception(s)");
 
     threadPool.awaitTermination(5, TimeUnit.SECONDS);
@@ -169,7 +179,7 @@ class PipelinrNotificationsTest {
   @Test
   void supportsContinueOnExceptionStrategy() {
     // given:
-    Pipeline pipeline =
+    an.awesome.pipelinr.Pipeline pipeline =
         pipelinrWithHandlers(
                 new ThrowingRespublican("Omg"),
                 new ThrowingRespublican("Oh!"),
@@ -191,7 +201,7 @@ class PipelinrNotificationsTest {
   @Test
   void stopOnExceptionIsDefaultStrategy() {
     // given:
-    Pipeline pipeline =
+    an.awesome.pipelinr.Pipeline pipeline =
         pipelinrWithHandlers(
             new ThrowingRespublican("Omg"),
             new ThrowingRespublican("Oh!"),
@@ -220,13 +230,13 @@ class PipelinrNotificationsTest {
     assertThat(timesHandled).hasValue(2);
   }
 
-  private Pipelinr pipelinrWithHandlers(Notification.Handler... handlers) {
+  private an.awesome.pipelinr.Pipelinr pipelinrWithHandlers(an.awesome.pipelinr.Notification.Handler... handlers) {
     return new Pipelinr().with(() -> Stream.of(handlers));
   }
 
-  static class GreetDemocrats implements Notification {}
+  static class GreetDemocrats implements an.awesome.pipelinr.Notification {}
 
-  static class GreetRespublicans implements Notification {}
+  static class GreetRespublicans implements an.awesome.pipelinr.Notification {}
 
   class Hilary extends BaseNotificationHandler<GreetDemocrats> {
     @Override
@@ -267,7 +277,7 @@ class PipelinrNotificationsTest {
     }
   }
 
-  abstract class BaseNotificationHandler<N extends Notification>
+  abstract class BaseNotificationHandler<N extends an.awesome.pipelinr.Notification>
       implements Notification.Handler<N> {
 
     @Override

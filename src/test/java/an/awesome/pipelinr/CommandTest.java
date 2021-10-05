@@ -2,6 +2,9 @@ package an.awesome.pipelinr;
 
 import static org.mockito.Mockito.verify;
 
+import an.awesome.pipelinr.Command;
+import an.awesome.pipelinr.Pipeline;
+import an.awesome.pipelinr.Voidy;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
@@ -12,7 +15,7 @@ public class CommandTest {
 
   @Test
   void delegatesToPipeline(@Mock Pipeline cmdPipeline) {
-    Command<Voidy> cmd = new Command<Voidy>() {};
+    an.awesome.pipelinr.Command<an.awesome.pipelinr.Voidy> cmd = new Command<Voidy>() {};
     cmd.execute(cmdPipeline);
 
     verify(cmdPipeline).send(cmd);
