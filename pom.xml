@@ -21,6 +21,7 @@
     </properties>
 
     <dependencies>
+        <!-- App starts here-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
@@ -48,9 +49,23 @@
             <groupId>com.querydsl</groupId>
             <artifactId>querydsl-jpa</artifactId>
         </dependency>
+        <!-- *****************App stops here*****************-->
+
+        <!-- *****************events starts here***************** -->
+
+        <!-- spring data jpa-->
+        <!-- querydsl-jpa-->
+        <!-- spring-boot-starter-validation-->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-stream</artifactId>
+            <version>3.1.4</version>
+        </dependency>
+
+        <!-- *****************events stops here*****************-->
 
 
-
+        <!-- *****************cqrs starts here*****************-->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-sleuth</artifactId>
