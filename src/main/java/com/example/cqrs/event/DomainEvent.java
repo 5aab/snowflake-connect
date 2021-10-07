@@ -7,8 +7,8 @@ import java.util.UUID;
 
 @Getter
 @ToString
-@AllArgsConstructor(access = AccessLevel.PRIVATE)
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
+@AllArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public abstract class DomainEvent<E extends Enum<E>, T extends DomainAggregateRoot> implements Event {
 
     private UUID id;
@@ -16,5 +16,18 @@ public abstract class DomainEvent<E extends Enum<E>, T extends DomainAggregateRo
     private E type;
     private T entity;
     private LocalDateTime firedOn;
+
+    protected DomainEvent(E type, T entity) {
+        this.type = type;
+        this.entity = entity;
+        this.firedOn = LocalDateTime.now();
+        this.id = UUID.randomUUID();
+        this.aggregateSource = entity.getAggregateName();
+    }
+
+    @Override
+    public UUID id() {
+        return this.id;
+    }
 
 }

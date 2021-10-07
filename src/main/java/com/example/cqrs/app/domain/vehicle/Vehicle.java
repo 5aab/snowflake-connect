@@ -1,5 +1,7 @@
 package com.example.cqrs.app.domain.vehicle;
 
+import com.example.cqrs.app.domain.vehicle.event.VehicleEvent;
+import com.example.cqrs.event.DomainAggregateRoot;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -10,9 +12,9 @@ import java.time.LocalDate;
 @Data
 @EqualsAndHashCode
 @Entity
-public class Vehicle implements Serializable {
+public class Vehicle extends DomainAggregateRoot<VehicleEvent,Integer> {
 
-    private static final long we = 1L;
+    private static final long serialVersionUID = 1L;
 
     @Id
     @Column(name = "ID", nullable = false)
@@ -45,4 +47,13 @@ public class Vehicle implements Serializable {
     private String showroomPrice;
     private String onRoadPrice;
 
+    @Override
+    public Integer getIdentity() {
+        return id;
+    }
+
+    @Override
+    public String getAggregateName() {
+        return "vehicle";
+    }
 }
