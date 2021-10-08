@@ -7,7 +7,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.function.Supplier;
 
 @Configuration
@@ -23,11 +22,7 @@ public class VehicleController {
         vehicle.setModelCode("modelCode");
         vehicle.setBrandName("brandName");
         vehicle.setLaunchDate(LocalDate.now());
-        Vehicle save = this.vehicleRepository.save(vehicle);
-        vehicle.setCreatedBy("Ish");
-        vehicle.setCreatedDate(LocalDateTime.now());
-        vehicle.setLastModifiedBy("Ish");
-        vehicle.setLastModifiedDate(LocalDateTime.now());
+        Vehicle save = this.vehicleRepository.save(vehicle.create());
         return ()-> save.toString();
     }
 }

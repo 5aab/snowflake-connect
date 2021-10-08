@@ -1,12 +1,12 @@
 package com.example.cqrs.app.domain.vehicle;
 
+import com.example.cqrs.app.domain.vehicle.event.CreateVehicleEvent;
 import com.example.cqrs.app.domain.vehicle.event.VehicleEvent;
 import com.example.cqrs.event.DomainAggregateRoot;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.time.LocalDate;
 
 @Data
@@ -55,5 +55,10 @@ public class Vehicle extends DomainAggregateRoot<VehicleEvent,Integer> {
     @Override
     public String getAggregateName() {
         return "vehicle";
+    }
+
+    public Vehicle create(){
+       registerEvent(new CreateVehicleEvent(this));
+       return this;
     }
 }

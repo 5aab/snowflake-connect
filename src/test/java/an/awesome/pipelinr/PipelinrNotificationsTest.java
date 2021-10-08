@@ -1,8 +1,6 @@
 package an.awesome.pipelinr;
 
-import static java.lang.Thread.currentThread;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -14,16 +12,9 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.stream.Stream;
 
-import an.awesome.pipelinr.AggregateException;
-import an.awesome.pipelinr.Async;
-import an.awesome.pipelinr.ContinueOnException;
-import an.awesome.pipelinr.Notification;
-import an.awesome.pipelinr.ParallelNoWait;
-import an.awesome.pipelinr.ParallelWhenAll;
-import an.awesome.pipelinr.ParallelWhenAny;
-import an.awesome.pipelinr.Pipeline;
-import an.awesome.pipelinr.Pipelinr;
-import org.junit.jupiter.api.Test;
+import static java.lang.Thread.currentThread;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class PipelinrNotificationsTest {
 

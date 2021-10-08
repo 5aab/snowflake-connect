@@ -30,4 +30,9 @@ public abstract class DomainEvent<E extends Enum<E>, T extends DomainAggregateRo
         return this.id;
     }
 
+    @Override
+    public LocalDateTime firedOn() {
+        return LocalDateTime.now();
+    }
+
 }
