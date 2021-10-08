@@ -1,4 +1,4 @@
-package com.example.cqrs.app.service;
+package com.example.cqrs.app.domain.ping;
 
 import an.awesome.pipelinr.Command;
 import org.springframework.stereotype.Component;

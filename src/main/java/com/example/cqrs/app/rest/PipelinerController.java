@@ -4,7 +4,7 @@ import an.awesome.pipelinr.Pipeline;
 import com.example.cqrs.app.domain.vehicle.Vehicle;
 import com.example.cqrs.app.domain.vehicle.VehicleRepository;
 import com.example.cqrs.app.domain.vehicle.dto.VehicleDto;
-import com.example.cqrs.app.service.Ping;
+import com.example.cqrs.app.domain.ping.Ping;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
