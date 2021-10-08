@@ -3,15 +3,17 @@ package com.example.cqrs.app.rest.functional;
 import com.example.cqrs.app.domain.vehicle.Vehicle;
 import com.example.cqrs.app.domain.vehicle.VehicleRepository;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import java.time.LocalDate;
 import java.util.function.Supplier;
 
+@Slf4j
 @Configuration
 @AllArgsConstructor
-public class VehicleController {
+public class VehicleFunctionalController {
 
     private VehicleRepository vehicleRepository;
 

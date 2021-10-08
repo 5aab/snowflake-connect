@@ -25,7 +25,7 @@ public class MessageRelayHandler {
     @EventListener
     public void relayAggregateEvent(DomainEvent message) {
         String destinationChannel = message.getAggregateSource() + "NotificationChannel";
-        log.debug("->[DE]-> Relay to {} : {}", destinationChannel, message);
+        log.info("->[DE]-> Relay to {} : {}", destinationChannel, message);
         Map<String, Object> headers = new HashMap<>();
         headers.put(RELAY_DESTINATION, destinationChannel);
         headers.put(EVENT_TYPE, message.getType().name());
