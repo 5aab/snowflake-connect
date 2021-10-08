@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.mysema.commons.lang.Assert;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
@@ -16,12 +18,14 @@ import javax.persistence.*;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
-@Data
+@Getter
+@Setter
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
 public abstract class DomainAggregateRoot<E extends DomainEvent, ID extends Serializable> {
@@ -60,7 +64,7 @@ public abstract class DomainAggregateRoot<E extends DomainEvent, ID extends Seri
     @CreatedDate
     @Column(name = "created_date", nullable = false, updatable = false)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
-    private String createdDate;
+    private LocalDateTime createdDate;
 
     @LastModifiedBy
     @Size(min = 3, max = 100)
@@ -73,7 +77,7 @@ public abstract class DomainAggregateRoot<E extends DomainEvent, ID extends Seri
     @LastModifiedDate
     @Column(name = "last_modified_date", updatable = false)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
-    private String lastModifiedDate;
+    private LocalDateTime lastModifiedDate;
 
     @Version
     private Integer version;
