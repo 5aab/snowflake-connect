@@ -24,21 +24,21 @@ public class MessageRelayHandler {
 
     public MessageRelayHandler(MessageChannel relayMessageChannel, StreamBridge streamBridge) {
         Assert.notNull(relayMessageChannel, "Aggregate Channel can't be null");
-        this.relayMessageChannel = relayMessageChannel;
+       // this.relayMessageChannel = relayMessageChannel;
         this.streamBridge = streamBridge;
     }
 
     @EventListener
     public void relayAggregateEvent(DomainEvent message) {
-        String destinationChannel = message.getAggregateSource() + "NotificationChannel";
+       // String destinationChannel = message.getAggregateSource() + "NotificationChannel";
         String destinationBinding = message.getAggregateSource() + "-notification-channel";
-        log.info("->[DE]-> Relay to {} : {}", destinationChannel, message);
+        log.info("->[DE]-> Relay to {} : {}", destinationBinding, message);
         Map<String, Object> headers = new HashMap<>();
-        headers.put(RELAY_DESTINATION, destinationChannel);
+        headers.put(RELAY_DESTINATION, destinationBinding);
         headers.put(EVENT_TYPE, message.getType().name());
         headers.put(SOURCE, message.getAggregateSource());
         Message<DomainEvent> finalMessage = MessageBuilder.createMessage(message, new MessageHeaders(headers));
-        relayMessageChannel.send(finalMessage);
+        //relayMessageChannel.send(finalMessage);
         streamBridge.send(destinationBinding, finalMessage);
     }
 
