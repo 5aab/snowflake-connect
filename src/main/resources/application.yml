@@ -12,3 +12,20 @@ spring:
     url: jdbc:h2:mem:testdb
     username: sa
     password:
+  rabbitmq:
+    addresses: localhost:5672
+    password: admin
+    username: admin
+    listener:
+      simple:
+        concurrency: 4
+        max-concurrency: 8
+        prefetch: 162
+      concurrency: 4
+      max-concurrency: 8
+      prefetch: 162
+  cloud:
+    stream:
+      bindings:
+        vehicle-notification-channel:
+          destination: vehicle-events

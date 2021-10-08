@@ -2,6 +2,7 @@ package com.example.cqrs.event.config;
 
 import com.example.cqrs.event.relay.MessageRelayHandler;
 import org.springframework.cloud.stream.binding.BinderAwareChannelResolver;
+import org.springframework.cloud.stream.function.StreamBridge;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.integration.annotation.ServiceActivator;
@@ -30,7 +31,7 @@ public class RelayConfig {
     }
 
     @Bean
-    public MessageRelayHandler domainEventHandlerRelay() {
-        return new MessageRelayHandler(relayMessageRouterChannel());
+    public MessageRelayHandler domainEventHandlerRelay(StreamBridge streamBridge) {
+        return new MessageRelayHandler(relayMessageRouterChannel(), streamBridge);
     }
 }
