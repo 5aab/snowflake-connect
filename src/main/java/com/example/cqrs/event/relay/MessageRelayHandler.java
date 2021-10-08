@@ -4,6 +4,8 @@ import com.example.cqrs.event.DomainEvent;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.event.EventListener;
 import org.springframework.messaging.MessageChannel;
+import org.springframework.messaging.MessageHeaders;
+import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.util.Assert;
 
 import java.util.HashMap;
@@ -30,6 +32,7 @@ public class MessageRelayHandler {
         headers.put(RELAY_DESTINATION, destinationChannel);
         headers.put(EVENT_TYPE, message.getType().name());
         headers.put(SOURCE, message.getAggregateSource());
+        relayMessageChannel.send(MessageBuilder.createMessage(message, new MessageHeaders(headers)));
     }
 
 }
