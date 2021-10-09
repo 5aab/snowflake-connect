@@ -30,4 +30,9 @@ public class CqrsDemoApplication {
         return System.out::println;
     }
 
+    @Bean
+    public Consumer<CreateVehicleEvent> investor() {
+        return System.out::println;
+    }
+
 }

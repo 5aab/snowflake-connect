@@ -26,7 +26,7 @@ spring:
       prefetch: 162
   cloud:
     function:
-      definition: buyer
+      definition: buyer;investor
     stream:
       bindings:
         vehicle-notification-channel:
@@ -34,3 +34,6 @@ spring:
         buyer-in-0:
           destination: vehicle-events
           group: buyer
+        investor-in-0:
+          destination: invest-events
+          group: interested
