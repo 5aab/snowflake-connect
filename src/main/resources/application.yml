@@ -25,7 +25,12 @@ spring:
       max-concurrency: 8
       prefetch: 162
   cloud:
+    function:
+      definition: buyer
     stream:
       bindings:
         vehicle-notification-channel:
           destination: vehicle-events
+        buyer-in-0:
+          destination: vehicle-events
+          group: buyer

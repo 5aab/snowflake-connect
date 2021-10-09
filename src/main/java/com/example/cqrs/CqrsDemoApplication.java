@@ -1,15 +1,11 @@
 package com.example.cqrs;
 
-import io.micrometer.core.instrument.FunctionTimer;
+import com.example.cqrs.app.domain.vehicle.event.CreateVehicleEvent;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
-import org.springframework.cloud.stream.annotation.EnableBinding;
 import org.springframework.context.annotation.Bean;
-import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.function.Function;
-import java.util.function.Supplier;
+import java.util.function.Consumer;
 
 @SpringBootApplication
 public class CqrsDemoApplication {
@@ -18,7 +14,7 @@ public class CqrsDemoApplication {
         SpringApplication.run(CqrsDemoApplication.class, args);
     }
 
-    @Bean
+   /* @Bean
     public Supplier<String> value() {
         return () -> "Hello Value";
     }
@@ -27,6 +23,11 @@ public class CqrsDemoApplication {
     @Bean
     public Function<String, String> uppercase() {
         return value -> value.toUpperCase();
+    }*/
+
+    @Bean
+    public Consumer<CreateVehicleEvent> buyer() {
+        return System.out::println;
     }
 
 }
