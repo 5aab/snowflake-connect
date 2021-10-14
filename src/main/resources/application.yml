@@ -4,6 +4,8 @@ server:
 spring.h2.console.enabled: true
 spring.h2.console.path: /h2-console
 
+
+
 spring:
   jpa:
     database-platform: org.hibernate.dialect.H2Dialect
@@ -28,6 +30,7 @@ spring:
     function:
       definition: buyer;investor
     stream:
+      dlq-max-retrials: 10
       bindings:
         vehicle-notification-channel:
           destination: vehicle-events
@@ -37,3 +40,9 @@ spring:
         investor-in-0:
           destination: invest-events
           group: interested
+
+sys:
+  retry:
+    enable-health-check: false
+    simple-retry-exceptions:
+      - com.example.cqrs.retry.SimpleRetryException

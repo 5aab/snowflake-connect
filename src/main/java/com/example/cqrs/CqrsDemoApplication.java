@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Bean;
 
 import java.util.function.Consumer;
 
+
 @SpringBootApplication
 public class CqrsDemoApplication {
 
