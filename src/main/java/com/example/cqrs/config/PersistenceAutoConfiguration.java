@@ -1,7 +1,7 @@
 package com.example.cqrs.config;
 
-import com.example.cqrs.app.domain.CustomRepositoryImpl;
-import com.example.cqrs.app.domain.NoOpPersistencePackageMarker;
+import com.example.cqrs.persistence.CustomRepositoryImpl;
+import com.example.cqrs.NoOpPersistencePackageMarker;
 import com.fasterxml.jackson.datatype.hibernate5.Hibernate5Module;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.autoconfigure.orm.jpa.HibernatePropertiesCustomizer;

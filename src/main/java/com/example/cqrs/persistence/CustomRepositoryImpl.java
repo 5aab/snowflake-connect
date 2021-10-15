@@ -1,4 +1,4 @@
-package com.example.cqrs.app.domain;
+package com.example.cqrs.persistence;
 
 import com.querydsl.core.types.EntityPath;
 import com.querydsl.core.types.FactoryExpression;

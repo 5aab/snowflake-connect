@@ -1,4 +1,4 @@
-package com.example.cqrs.app.domain;
+package com.example.cqrs;
 
 public class NoOpPersistencePackageMarker {
 }

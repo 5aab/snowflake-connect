@@ -1,9 +1,8 @@
 package com.example.cqrs.retry.domain;
 
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import com.example.cqrs.event.DomainAggregateRoot;
+import com.example.cqrs.event.DomainEvent;
+import lombok.*;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
@@ -12,9 +11,10 @@ import java.util.UUID;
 
 @Getter
 @Entity
+@Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(staticName = "create")
-public class DeadMessage {
+public class DeadMessage extends DomainAggregateRoot<DomainEvent,UUID> {
 
     private static final long serialVersionUID = 23342374627456754L;
 
@@ -37,4 +37,14 @@ public class DeadMessage {
     private Map<String, String> headers;
 
     private String queueName;
+
+    @Override
+    public UUID getIdentity() {
+        return id;
+    }
+
+    @Override
+    public String getAggregateName() {
+        return "deadMessage";
+    }
 }
