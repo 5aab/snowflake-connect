@@ -15,9 +15,9 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.querydsl.binding.QuerydslPredicate;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.function.Predicate;
 
@@ -25,7 +25,7 @@ import static com.example.cqrs.app.domain.vehicle.VehicleQueryFilter.byBrandName
 import static com.example.cqrs.app.domain.vehicle.VehicleQueryFilter.vehicleProjection;
 
 @Slf4j
-@Controller
+@RestController
 @AllArgsConstructor
 public class PipelinerController {
 
@@ -37,7 +37,6 @@ public class PipelinerController {
     //accept: application/json
     //Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiJkMjc1ZTFlZS0zMzNlLTRjY2MtODI0My05OTA2NTU0M2QyYWQiLCJzdWIiOiJJc2hNYWhhamFuIiwicm9sZXMiOlsiQURNSU4iXSwicHJvZHVjdHMiOlsiSU5TVElUVVRJT05BTCJdLCJjcmVhdGVkIjoxNjM0Mzk4MDUzMzQ0LCJ1c2VyVHlwZSI6IkhVTUFOIiwiZXhwIjoxNjM0NDM0MDUzfQ.sVTnuxitmrevcQZKWoanuspu6Sh8oL3bZ3S11_UYayajVukj-BAiGG_2IleN_aqWlhLmFsMmNkfHppNE3sGNgA
     //janus_user: IshMahajan
-    @ResponseBody
     @GetMapping("testPipe")
     public String testPipe(@AuthenticationPrincipal JwtUser jwtUser){
         log.info("Hell0 : {}", jwtUser);
