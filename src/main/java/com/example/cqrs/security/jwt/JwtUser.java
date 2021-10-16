@@ -1,6 +1,7 @@
 package com.example.cqrs.security.jwt;
 
 import lombok.Getter;
+import lombok.ToString;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 
@@ -10,6 +11,7 @@ import java.util.Set;
 import java.util.UUID;
 
 @Getter
+@ToString
 public class JwtUser extends User {
     private static final long serialVersionUID = 1L;
 
