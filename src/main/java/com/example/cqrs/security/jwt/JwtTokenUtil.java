@@ -19,8 +19,8 @@ import java.util.stream.Collectors;
 public class JwtTokenUtil implements Serializable {
     private static final String CLAIM_KEY_ROLES = "roles";
     private static final String HTTP_AUTH_PREFIX = "Bearer ";
-    private static final String WorkGroup = "WorkGroup";
-    private static final String WorkGroup_CODE = "WorkGroupCode";
+    private static final String WORKGROUP = "workgroup";
+    private static final String WORKGROUP_CODE = "workgroupCode";
     private static final String CLIENT = "client";
     private static final String CLIENT_NAME = "clientName";
     private static final String USER_TYPE = "userType";
@@ -50,11 +50,11 @@ public class JwtTokenUtil implements Serializable {
         if (isTokenExpired(claims)) {
             throw new BadCredentialsException("Token has expired");
         }
-        if (claims.containsKey(WorkGroup)) {
-            UUID WorkGroupId = UUID.fromString(claims.get(WorkGroup, String.class));
+        if (claims.containsKey(WORKGROUP)) {
+            UUID WorkGroupId = UUID.fromString(claims.get(WORKGROUP, String.class));
             UUID clientId = UUID.fromString(claims.get(CLIENT, String.class));
             user = new JwtUser(userId, "", authorities(roleNames), WorkGroupId,
-                    claims.get(WorkGroup_CODE, String.class), clientId, claims.get(CLIENT_NAME, String.class),
+                    claims.get(WORKGROUP_CODE, String.class), clientId, claims.get(CLIENT_NAME, String.class),
                     claims.get(USER_TYPE, String.class), getProducts(claims));
         } else {
             user = new JwtUser(userId, "", roleNames.stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList()),
