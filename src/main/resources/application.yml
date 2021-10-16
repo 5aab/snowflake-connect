@@ -46,3 +46,7 @@ sys:
     enable-health-check: false
     simple-retry-exceptions:
       - com.example.cqrs.retry.SimpleRetryException
+
+security:
+  jwt:
+    secret: hdj86376376738r848478n57587847cm845f854787685764578n7m894m85m89567689758996859689e4rncbrr449384fnfcdmddmd

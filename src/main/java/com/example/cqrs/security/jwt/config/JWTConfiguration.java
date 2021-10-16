@@ -1,12 +1,13 @@
 package com.example.cqrs.security.jwt.config;
 
 import lombok.Getter;
+import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.convert.DurationUnit;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.lang.NonNull;
 import org.springframework.validation.annotation.Validated;
 
+import javax.validation.constraints.NotEmpty;
 import java.time.Duration;
 import java.time.temporal.ChronoUnit;
 
@@ -16,7 +17,8 @@ import java.time.temporal.ChronoUnit;
 @ConfigurationProperties(prefix= "security.jwt")
 public class JWTConfiguration {
 
-    @NonNull
+    @Setter
+    @NotEmpty
     private String secret;
 
     @DurationUnit(ChronoUnit.MINUTES)
