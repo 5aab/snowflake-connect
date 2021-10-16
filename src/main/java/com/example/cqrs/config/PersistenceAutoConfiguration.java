@@ -28,7 +28,7 @@ public class PersistenceAutoConfiguration {
         return prop -> {
             prop.put("hibernate.id.new_generator_mappings", "true");
             prop.put("hibernate.jdbc.batch_size", "100");
-            prop.put("hibernate.generate_statistics", "true");
+           // prop.put("hibernate.generate_statistics", "true");
             prop.put("hibernate.jdbc.time_zone", "UTC");
         };
     }
