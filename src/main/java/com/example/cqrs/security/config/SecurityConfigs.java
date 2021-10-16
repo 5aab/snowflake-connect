@@ -23,6 +23,7 @@ public class SecurityConfigs extends MicroserviceSecurityConfigurerAdapter {
     protected void configureMicroserviceAPISecurity(ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry urlRegistry) {
         urlRegistry.antMatchers("/**/api/app/**").hasAnyRole();
         urlRegistry.antMatchers("/**/api/admin/**").hasRole("ADMIN");
-        urlRegistry.antMatchers("/**/testPipe/**").permitAll();
+        urlRegistry.antMatchers("/**/testPipe/**").hasRole("ADMIN");
+        urlRegistry.antMatchers("/**/token/**").permitAll();
     }
 }

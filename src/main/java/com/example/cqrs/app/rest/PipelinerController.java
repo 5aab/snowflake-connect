@@ -1,10 +1,11 @@
 package com.example.cqrs.app.rest;
 
 import an.awesome.pipelinr.Pipeline;
+import com.example.cqrs.app.domain.ping.Ping;
+import com.example.cqrs.app.domain.token.TokenGenerationService;
 import com.example.cqrs.app.domain.vehicle.Vehicle;
 import com.example.cqrs.app.domain.vehicle.VehicleRepository;
 import com.example.cqrs.app.domain.vehicle.dto.VehicleDto;
-import com.example.cqrs.app.domain.ping.Ping;
 import com.example.cqrs.security.jwt.JwtUser;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -30,12 +31,25 @@ public class PipelinerController {
 
     private Pipeline pipeline;
     private VehicleRepository vehicleRepository;
+    private TokenGenerationService tokenGenerationService;
 
+     //content-type: application/json
+    //accept: application/json
+    //Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiJkMjc1ZTFlZS0zMzNlLTRjY2MtODI0My05OTA2NTU0M2QyYWQiLCJzdWIiOiJJc2hNYWhhamFuIiwicm9sZXMiOlsiQURNSU4iXSwicHJvZHVjdHMiOlsiSU5TVElUVVRJT05BTCJdLCJjcmVhdGVkIjoxNjM0Mzk4MDUzMzQ0LCJ1c2VyVHlwZSI6IkhVTUFOIiwiZXhwIjoxNjM0NDM0MDUzfQ.sVTnuxitmrevcQZKWoanuspu6Sh8oL3bZ3S11_UYayajVukj-BAiGG_2IleN_aqWlhLmFsMmNkfHppNE3sGNgA
+    //janus_user: IshMahajan
     @ResponseBody
     @GetMapping("testPipe")
     public String testPipe(@AuthenticationPrincipal JwtUser jwtUser){
         log.info("Hell0 : {}", jwtUser);
         return new Ping("PONGA PONGA").execute(pipeline);
+    }
+
+    @ResponseBody
+    @GetMapping("token")
+    public String token(){
+        String token = tokenGenerationService.generateToken();
+        log.info("Token : {}", token);
+        return token;
     }
 
 
