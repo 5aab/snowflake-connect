@@ -1,6 +1,6 @@
 package com.example.cqrs.security.config;
 
-import com.example.cqrs.security.SecurityAuditorAware;
+import com.example.cqrs.security.audit.SecurityAuditorAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

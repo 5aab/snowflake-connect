@@ -1,4 +1,4 @@
-package com.example.cqrs.security;
+package com.example.cqrs.security.audit;
 
 import org.springframework.data.domain.AuditorAware;
 
