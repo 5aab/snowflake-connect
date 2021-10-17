@@ -73,8 +73,6 @@ public abstract class MicroserviceSecurityConfigurerAdapter extends WebSecurityC
     protected abstract void configureMicroserviceAPISecurity(ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry urlRegistry);
 
     protected RequestHeaderAuthenticationFilter jsonWebTokenAuthenticationFilter(AuthenticationManager authenticationManager) {
-
-
         RequestHeaderAuthenticationFilter rhaf = new RequestHeaderAuthenticationFilter();
         rhaf.setPrincipalRequestHeader(AUTHORIZATION);
         rhaf.setCredentialsRequestHeader(JANUS_USER);
