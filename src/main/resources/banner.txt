@@ -1,0 +1,10 @@
+
+   ____    ___    ____    ____
+  / ___|  / _ \  |  _ \  / ___|
+ | |     | | | | | |_) | \___ \
+ | |___  | |_| | |  _ <   ___) |
+  \____|  \__\_\ |_| \_\ |____/
+
+:: Spring Boot :: ${spring-boot.version}  :: Java :: ${java.version}
+:: Http Port   :: ${server.port}          :: PID ::  ${PID}
+
