@@ -6,5 +6,5 @@
   \____|  \__\_\ |_| \_\ |____/
 
 :: Spring Boot :: ${spring-boot.version}  :: Java :: ${java.version}
-:: Http Port   :: ${server.port}          :: PID ::  ${PID}
+:: Http Port   :: ${server.port}   :: PID ::  ${PID}
 
