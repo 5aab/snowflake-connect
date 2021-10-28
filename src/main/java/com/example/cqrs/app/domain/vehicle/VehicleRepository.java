@@ -22,5 +22,5 @@ public interface VehicleRepository extends CustomRepository<Vehicle, Integer> {
     Set<CompositeOutputVO> findAllComposites(@Param("brandName") String brandName);
 
     @Transactional(readOnly= true)
-    Set<VehicleRecord> brandName(String brandName);
+    Set<VehicleRecord> findByBrandName(String brandName);
 }

@@ -63,7 +63,7 @@ public class PipelinerController {
 
     @GetMapping("vehicle/record")
     public Set<VehicleRecord> searchVehicles(){
-        Set<VehicleRecord> allVehicles = vehicleRepository.brandName("brandName");
+        Set<VehicleRecord> allVehicles = vehicleRepository.findByBrandName("brandName");
         return allVehicles;
     }
 }
