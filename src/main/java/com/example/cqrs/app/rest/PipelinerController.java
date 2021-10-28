@@ -6,6 +6,7 @@ import com.example.cqrs.app.domain.token.TokenGenerationService;
 import com.example.cqrs.app.domain.vehicle.Vehicle;
 import com.example.cqrs.app.domain.vehicle.VehicleRepository;
 import com.example.cqrs.app.domain.vehicle.dto.VehicleDto;
+import com.example.cqrs.app.domain.vehicle.record.VehicleRecord;
 import com.example.cqrs.security.jwt.JwtUser;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Set;
 import java.util.function.Predicate;
 
 import static com.example.cqrs.app.domain.vehicle.VehicleQueryFilter.byBrandName;
@@ -56,5 +58,12 @@ public class PipelinerController {
     @GetMapping("predicated")
     public Page<VehicleDto> search(String brandName, @QuerydslPredicate (root = Vehicle.class)Predicate spec, @PageableDefault(sort = {"createdDate"}, direction = Sort.Direction.DESC, size = 50)Pageable pageable){
         return vehicleRepository.findAll(vehicleProjection(), byBrandName(brandName), pageable);
+    }
+
+
+    @GetMapping("vehicle/record")
+    public Set<VehicleRecord> searchVehicles(){
+        Set<VehicleRecord> allVehicles = vehicleRepository.brandName("brandName");
+        return allVehicles;
     }
 }
