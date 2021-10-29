@@ -1,8 +1,8 @@
 package com.example.cqrs.app.domain.vehicle;
 
+import com.example.cqrs.app.domain.composite.CompositeOutputVO;
 import com.example.cqrs.app.domain.vehicle.record.VehicleRecord;
 import com.example.cqrs.persistence.CustomRepository;
-import com.example.cqrs.app.domain.composite.CompositeOutputVO;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.jpa.repository.QueryHints;
 import org.springframework.data.repository.query.Param;
@@ -23,4 +23,5 @@ public interface VehicleRepository extends CustomRepository<Vehicle, Integer> {
 
     @Transactional(readOnly= true)
     Set<VehicleRecord> findByBrandName(String brandName);
+
 }
