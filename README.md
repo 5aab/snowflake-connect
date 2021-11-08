@@ -1,3 +1,2 @@
-# cqrs
-Command and Query Segregation Library
-#Ref implementation of https://github.com/sizovs/PipelinR
+# snowflake
+Snowflake connect with spring boot app

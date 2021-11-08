@@ -1,52 +1,17 @@
 server:
-  port: 9090
-
-spring.h2.console.enabled: true
-spring.h2.console.path: /h2-console
-
+  port: 9095
 
 
 spring:
   jpa:
-    database-platform: org.hibernate.dialect.H2Dialect
+    properties:
+      hibernate:
+        dialect: com.example.cqrs.config.SnowflakeDialect
+    hibernate:
+      ddl-auto: none
   datasource:
-    driverClassName: org.h2.Driver
-    url: jdbc:h2:mem:testdb
-    username: sa
-    password:
-  rabbitmq:
-    addresses: localhost:5672
-    password: admin
-    username: admin
-    listener:
-      simple:
-        concurrency: 4
-        max-concurrency: 8
-        prefetch: 162
-      concurrency: 4
-      max-concurrency: 8
-      prefetch: 162
-  cloud:
-    function:
-      definition: buyer;investor
-    stream:
-      dlq-max-retrials: 10
-      bindings:
-        vehicle-notification-channel:
-          destination: vehicle-events
-        buyer-in-0:
-          destination: vehicle-events
-          group: buyer
-        investor-in-0:
-          destination: invest-events
-          group: interested
-
-sys:
-  retry:
-    enable-health-check: false
-    simple-retry-exceptions:
-      - com.example.cqrs.retry.SimpleRetryException
-
-security:
-  jwt:
-    secret: hdj86376376738r848478n57587847cm845f854787685764578n7m894m85m895676897859689e4rncbrr49384fnmddmd
+    name: snowflake-pool-props
+    driverClassName: net.snowflake.client.jdbc.SnowflakeDriver
+    url: jdbc:snowflake://vn75069.australia-east.azure.snowflakecomputing.com/?warehouse=TEST_WH&db=TESTDB&schema=PUBLIC&CLIENT_RESULT_COLUMN_CASE_INSENSITIVE=true
+    username: ishmahajan
+    password: BoeingB17^

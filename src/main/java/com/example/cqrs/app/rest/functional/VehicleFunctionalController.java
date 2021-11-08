@@ -4,7 +4,6 @@ import com.example.cqrs.app.domain.vehicle.Vehicle;
 import com.example.cqrs.app.domain.vehicle.VehicleRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import java.time.LocalDate;
@@ -17,7 +16,7 @@ public class VehicleFunctionalController {
 
     private VehicleRepository vehicleRepository;
 
-    @Bean
+    //@Bean
     public Supplier<String> persistVehicle(){
         final Vehicle vehicle = new Vehicle();
         vehicle.setType("type");
