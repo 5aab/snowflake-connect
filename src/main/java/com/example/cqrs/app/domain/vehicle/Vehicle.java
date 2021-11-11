@@ -3,6 +3,7 @@ package com.example.cqrs.app.domain.vehicle;
 import com.example.cqrs.app.domain.vehicle.event.CreateVehicleEvent;
 import com.example.cqrs.app.domain.vehicle.event.VehicleEvent;
 import com.example.cqrs.event.DomainAggregateRoot;
+import com.querydsl.core.annotations.QueryEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -11,6 +12,7 @@ import java.time.LocalDate;
 
 @Data
 @EqualsAndHashCode
+@QueryEntity
 @Entity
 public class Vehicle extends DomainAggregateRoot<VehicleEvent,Integer> {
 

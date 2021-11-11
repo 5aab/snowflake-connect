@@ -19,6 +19,8 @@ public class VehicleQueryFilter {
     }
 
     public static ConstructorExpression<VehicleDto> vehicleProjection() {
+        Class<? extends Vehicle> type = $.getType();
+        System.out.println(type);
         return getProjection(VehicleDto.class, $);
     }
 
